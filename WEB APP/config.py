@@ -1,4 +1,5 @@
 import os
+from flask_appbuilder.security.manager import AUTH_DB
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -31,15 +32,6 @@ LANGUAGES = {
 # GLOBALS FOR GENERAL APP's:     #
 # ------------------------------ #
 
-UPLOAD_FOLDER = basedir + "/app/static/uploads/"
-IMG_UPLOAD_FOLDER = basedir + "/app/static/uploads/"
-IMG_UPLOAD_URL = "/static/uploads/"
-IMG_SIZE = (150, 150, True)
-
-AUTH_TYPE = 1
-AUTH_ROLE_ADMIN = "Admin"
-AUTH_ROLE_PUBLIC = "Public"
-
 APP_NAME = "BAKALÁRSKA PRÁCA: WEB PRE ROBOCUPJUNIOR"
 # APP_THEME = ""                    # default
 APP_THEME = "cyborg.css"            # COOL
@@ -53,3 +45,22 @@ APP_THEME = "cyborg.css"            # COOL
 # APP_THEME = "readable.css"        # IDK
 # APP_THEME = "simplex.css"         # IDK
 # APP_THEME = "united.css"          # IDK
+
+AUTH_TYPE = AUTH_DB
+
+FAB_SECURITY_MANAGER_CLASS = "app.security.MySecurityManager"
+
+FAB_ROLES = {
+    "Manager": [
+        ["MainMenu|Teams|Slots|Competitors|Home", "menu_access"],
+        ["TeamView|CompetitorView", "can_list|can_show|can_add|can_edit|can_delete"],
+        ["SlotView", "can_list|can_show|can_edit"],
+        ["MyUserDBModelView", "can_userinfo|resetmypassword|userinfoedit"],
+        ["Reset.*Password.*|UserInfoEditView|DefaultView", ".*"]
+    ],
+    "Admin": [
+        ["MainMenu", "-menu_access"],
+        ["^(?:TeamView|SlotView|CompetitorView)", "-can_list"],
+        [".*", ".*"],
+    ]
+}
