@@ -41,11 +41,11 @@ class DefaultView(MultipleView):
 
         for view in self.computed_views:
 
-            if appbuilder.sm.has_access("can_list",view.__class__.__name__):
+            if appbuilder.sm.has_access("can_list", view.__class__.__name__):
 
                 filtered_views.append(view)
 
-        sortedViews = sorted(filtered_views,key = cmp_to_key(lambda view1, view2 : view2.indexPriority - view1.indexPriority))
+        sortedViews = sorted(filtered_views, key = cmp_to_key(lambda view1, view2 : view2.indexPriority - view1.indexPriority))
         result = self._list(sortedViews)
         return result
     
@@ -77,7 +77,7 @@ class DefaultView(MultipleView):
             views_widgets.append(
                 view.getViewWidget() if isinstance(view,SelectSeasonFormView) else 
                 view._get_view_widget(
-                    filters=view._base_filters,
+                    filters = view._base_filters,
                     order_column = order_column,
                     order_direction = order_direction,
                     page = page,

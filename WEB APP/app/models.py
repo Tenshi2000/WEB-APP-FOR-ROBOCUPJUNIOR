@@ -53,7 +53,7 @@ class Competitor(Model):
 
 class Team(Model):
 
-    __table_args__ = (UniqueConstraint('season_id', 'name', name = 'unique_season_id_name'),) # Pridal som toto a odstránil UNIQUE = TRUE z "name".
+    __table_args__ = (UniqueConstraint('name', 'season_id', 'region_id', 'category_id', name = 'unique_name_season_id_region_id_category_id'),)
 
     id = Column(Integer, primary_key = True)
     name = Column(String(50), nullable = False)
@@ -70,11 +70,11 @@ class Team(Model):
 
     def __repr__(self):
         
-        return self.name
+        return self.name + " (" +  self.season.name + ", " + self.region.name + ", " + self.category.name + ")"
 
 class Category(Model):
     
-    __table_args__ = (UniqueConstraint('season_id', 'name', name = 'unique_season_id_name'),) # Pridal som toto a odstránil UNIQUE = TRUE z "name".
+    __table_args__ = (UniqueConstraint('season_id', 'name', name = 'unique_season_id_name'),)
 
     id = Column(Integer, primary_key = True)
     name = Column(String(50), nullable = False)
@@ -85,11 +85,11 @@ class Category(Model):
 
     def __repr__(self):
         
-        return self.name + " " + self.season.name
+        return self.name + " (" + self.season.name + ")"
 
 class Slot(Model):
     
-    __table_args__ = (UniqueConstraint('season_id', 'name', name = 'unique_season_id_name'),) # Pridal som toto a odstránil UNIQUE = TRUE z "name".
+    __table_args__ = (UniqueConstraint('name', 'season_id', 'region_id', 'category_id', name = 'unique_name_season_id_region_id_category_id'),)
 
     id = Column(Integer, primary_key = True)
     name = Column(String(50), nullable = False)
@@ -108,4 +108,4 @@ class Slot(Model):
 
     def __repr__(self):
         
-        return self.name
+        return self.name + " (" +  self.season.name + ", " + self.region.name + ", " + self.category.name + ")"

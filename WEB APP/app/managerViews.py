@@ -62,7 +62,8 @@ class SlotView(NameModelView):
                     ['season_id', FilterInFunction, get_active_season_id]]
     list_columns = ['name', 'season.name', 'region.name', 'category.name', 'team.name']
 
-    edit_form_query_rel_fields = {"team": [['region_id', FilterInFunction, get_user_region_id]]}
+    edit_form_query_rel_fields = {"team": [['region_id', FilterInFunction, get_user_region_id],
+                                          ['season_id', FilterInFunction, get_active_season_id]]}
 
 def initManagerViews():
 

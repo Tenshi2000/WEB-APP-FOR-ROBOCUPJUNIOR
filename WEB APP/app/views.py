@@ -22,7 +22,7 @@ def initViews():
     from .adminViews import initAdminViews
     
     from .index import DefaultView
-    appbuilder.add_link("Home", "/" ,baseview = DefaultView)
+    appbuilder.add_link("Home", "/", baseview = DefaultView)
 
     initAdminViews()
     initManagerViews()
